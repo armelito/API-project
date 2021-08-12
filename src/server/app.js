@@ -38,4 +38,6 @@ if (IS_DEVELOPMENT !== "production")
   app.use(logger('dev'))
 }
 
+require("./config/db")
+
 module.exports = app
