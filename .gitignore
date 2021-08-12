@@ -1,2 +1,16 @@
-node_modules
+# System and generated files.
+.DS_Store
+.sass-cache
+
+# Directories.
+log/
+node_modules/
+bower_components/
+public/
+
+# Files.
+result.xml
+npm-debug.log
+
+# Environment.
 .env
