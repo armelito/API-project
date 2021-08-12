@@ -1,18 +1,26 @@
 const express = require('express')
 const httpStatus = require('../utils/httpStatus')
 
+const moviesRoutes = require('./api/movies')
+
 apiRoutes = () => 
 {
   const router = express.Router()
 
-  router.get('/posts', posts)
+  router.get('/', home)
+  router.use('/movies', moviesRoutes())
 
   return router
 }
 
-async function posts(req, res) 
+async function home(req, res) 
 {
-  res.status(httpStatus.OK).send('Posts')
+  res.status(httpStatus.OK).send('API home page')
 }
+
+//async function movies(req, res) 
+//{
+//  res.status(httpStatus.OK).send('API home page')
+//}
 
 module.exports = apiRoutes

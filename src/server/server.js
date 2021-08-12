@@ -31,14 +31,8 @@ function setupCloseOnExit(server)
   {
     await server
       .close()
-      .then(() => 
-      {
-        console.log('Server successfully closed')
-      })
-      .catch(e => 
-      {
-        console.warn('Something went wrong closing the server', e.stack)
-      })
+      .then(() => { console.log('Server successfully closed') })
+      .catch(e => { console.warn('Something went wrong closing the server', e.stack) })
 
     if (options.exit) process.exit()
   }
