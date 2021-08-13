@@ -7,10 +7,10 @@ const logger = createLogger(
     [
       new transports.MongoDB(
         {
+          db: 'mongodb://localhost/boilerplate',
           level: 'info',
           format: format.combine(format.timestamp(), format.json()),
           options: { useUnifiedTopology: true },
-          db: process.env.DB_CONNECTION,
           collection: 'logger'
         }
       )

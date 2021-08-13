@@ -1,17 +1,11 @@
 const express = require('express')
+const router = express.Router()
 
-clientRoutes = () => 
+router.get('/', home)
+
+async function home(req, res)
 {
-  const router = express.Router()
-
-  router.get('/', home)
-
-  return router
+  res.send('API home page')
 }
 
-async function home(req, res) 
-{
-  res.send('Home')
-}
-
-module.exports = clientRoutes
+module.exports = router

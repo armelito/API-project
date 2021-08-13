@@ -1,11 +1,11 @@
 errorMiddleware = (error, req, res, next) =>
 {
-  if (res.headersSent) 
+  if(res.headersSent)
   {
     next(error)
-  } 
-  
-  else 
+  }
+
+  else
   {
     console.error(error)
     res.status(500)
