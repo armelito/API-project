@@ -1,24 +1,46 @@
 const MovieService = require('../services/movieServices')
+const Movie = require('../models/Movie')
+const Categorie = require('../models/Categorie')
 const httpStatus = require("../utils/httpStatus")
+const compareUrl = require('../utils/compareUrl')
 
-createMovie = async (req, res) =>
+register = async (req, res) =>
 {
   try
   {
-    const movieObject =
+    let object = {}
+    let document
+
+    if(compareUrl(req, '/api/movies'))
     {
-      title: req.body.title,
-      description: req.body.description,
-      duration: req.body.duration,
-      genre: req.body.genre,
-      createdBy: req.body.createdBy
+      document = Movie
+
+      object =
+      {
+        title: req.body.title,
+        description: req.body.description,
+        duration: req.body.duration,
+        categories: req.body.categories,
+        createdBy: req.body.createdBy
+      }
+    }
+
+    if(compareUrl(req, '/api/movies/categories'))
+    {
+      document = Categorie
+
+      object =
+      {
+        title: req.body.title,
+        description: req.body.description
+      }
     }
 
     const movieServiceInstance = new MovieService()
 
-    const { newMovie } = await movieServiceInstance.register(movieObject)
+    const { element } = await movieServiceInstance.register({object, document})
 
-    return res.status(httpStatus.OK).send({ newMovie })
+    return res.status(httpStatus.OK).send({ element })
   }
 
   catch(error)
@@ -27,15 +49,24 @@ createMovie = async (req, res) =>
 
     return res.status(error.status).send(error.message)
   }
+
 }
 
-getMovies = async (req, res) =>
+get = async (req, res) =>
 {
   try
   {
+    let document
+
+    if(compareUrl(req, '/api/movies'))
+      document = Movie
+
+    if(compareUrl(req, '/api/movies/categories'))
+      document = Categorie
+
     const movieServiceInstance = new MovieService()
 
-    const movies = await movieServiceInstance.get()
+    const movies = await movieServiceInstance.get(document)
 
     return res.status(httpStatus.OK).send(movies)
   }
@@ -51,6 +82,6 @@ getMovies = async (req, res) =>
 
 module.exports =
 {
-  createMovie,
-  getMovies
+  register,
+  get
 }

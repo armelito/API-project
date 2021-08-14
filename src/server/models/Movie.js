@@ -19,7 +19,7 @@ const movieSchema = new Schema(
       required: true,
       type: Number
     },
-    genre:
+    categories:
     {
       required: true,
       type: String

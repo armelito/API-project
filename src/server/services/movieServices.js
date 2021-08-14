@@ -1,51 +1,53 @@
-const Movie = require('../models/Movie')
 const logger = require('../config/logger')
 
 class MovieService
 {
-  register = async (movieInput) =>
+  register = async (options) =>
   {
     try
     {
-      let newMovie = await Movie.create({ ...movieInput })
+      const body = options.object
 
-      const message = "Create movie"
-      const metadata = { action: "register: create a movie", payload: newMovie }
+      let element = await options.document.create({ ...body })
+
+      const message = `Register a ${options.document}`
+      const metadata = { action: `Register a ${options.document}`, payload: element }
       logger.info({ message, metadata })
 
-      return { newMovie }
+      return { element }
     }
 
     catch(error)
     {
       const message = error.message
-      const metadata = { action: "register a movie", payload: movieInput }
+      const metadata = { action: `Register a ${options.document}`, payload: body }
       logger.error({ message, metadata })
 
       throw error
     }
   }
 
-  get = async () =>
+  get = async (document) =>
   {
     try
     {
-      let movies = await Movie.find()
+      let elements = await document.find()
 
-      const message = "Get movies"
-      const metadata = { action: "get: get a movie", payload: movies }
+      const message = `Get ${document}`
+      const metadata = { action: `Get ${document}`, payload: elements }
       logger.info({ message, metadata })
 
-      return movies
+      return elements
     }
 
     catch(error)
     {
       const message = error.message
-      const metadata = { action: "get a movie", payload: movies }
+      const metadata = { action: `Get ${document}`, payload: movies }
       logger.info({ message, metadata })
     }
   }
+
 }
 
 module.exports = MovieService
