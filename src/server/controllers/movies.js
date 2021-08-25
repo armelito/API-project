@@ -1,6 +1,8 @@
 const MovieService = require('../services/movie')
+const CategoryService = require('../services/category')
+
 const { validate } = require('../models/Movie')
-const { Category } = require('../models/Category')
+
 const httpStatus = require("../utils/httpStatus")
 
 post = async (req, res) =>
@@ -13,7 +15,8 @@ post = async (req, res) =>
 
     else
     {
-      const category = await Category.findById(req.body.categoryId)
+      const categoryServiceInstance = new CategoryService()
+      const category = await categoryServiceInstance.get(req.body.categoryId)
 
       if(!category) return res.status(httpStatus.BAD_REQUEST).send('Category invalide')
 
@@ -103,7 +106,8 @@ put = async (req, res) =>
 
     else
     {
-      const category = await Category.findById(req.body.categoryId)
+      const categoryServiceInstance = new CategoryService()
+      const category = await categoryServiceInstance.get(req.body.categoryId)
 
       if(!category) return res.status(httpStatus.BAD_REQUEST).send('Category invalide')
 

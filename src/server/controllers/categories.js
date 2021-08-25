@@ -20,9 +20,9 @@ post = async (req, res) =>
 
       const categoryServiceInstance = new CategoryService()
 
-      const { category } = await categoryServiceInstance.post(object)
+      const category = await categoryServiceInstance.post(object)
 
-      return res.status(httpStatus.OK).send({ category })
+      return res.status(httpStatus.OK).send(category)
     }
   }
 
@@ -94,7 +94,7 @@ put = async (req, res) =>
 
       const categoryServiceInstance = new CategoryService()
 
-      const category = await categoryServiceInstance.put(req.params.id, object)
+      const category = await categoryServiceInstance.put(req.params.id, object, { new: true })
 
       if(!category) return res.status(httpStatus.NOT_FOUND).send('Category not found')
 

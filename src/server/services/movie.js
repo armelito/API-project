@@ -42,7 +42,7 @@ class MovieService
     catch(error)
     {
       const message = error.message
-      const metadata = { action: `Get ${document}`, payload: movies }
+      const metadata = { action: `Get movies`, payload: movies }
       logger.info({ message, metadata })
     }
   }
@@ -63,7 +63,7 @@ class MovieService
     catch(error)
     {
       const message = error.message
-      const metadata = { action: `Get ${document}`, payload: movie }
+      const metadata = { action: `Get movie`, payload: id }
       logger.info({ message, metadata })
     }
   }
@@ -107,7 +107,7 @@ class MovieService
     catch(error)
     {
       const message = error.message
-      const metadata = { action: `Remove a movie`, payload: object }
+      const metadata = { action: `Remove a movie`, payload: id }
       logger.error({ message, metadata })
 
       throw error

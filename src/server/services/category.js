@@ -7,13 +7,14 @@ class CategoryService
   {
     try
     {
-      const category = await Category.create({ ...object })
+      let category = new Category({ ...object })
+      category = await category.save()
 
       const message = `Register a Category`
       const metadata = { action: `Register a category`, payload: category }
       logger.info({ message, metadata })
 
-      return { category }
+      return category
     }
 
     catch(error)
@@ -42,7 +43,7 @@ class CategoryService
     catch(error)
     {
       const message = error.message
-      const metadata = { action: `Get ${document}`, payload: categories }
+      const metadata = { action: `Get categories`, payload: categories }
       logger.info({ message, metadata })
     }
   }
@@ -53,8 +54,8 @@ class CategoryService
     {
       const category = Category.findById(id)
 
-      const message = `Get categories`
-      const metadata = { action: `Get categories`, payload: category }
+      const message = `Get category`
+      const metadata = { action: `Get category`, payload: category }
       logger.info({ message, metadata })
 
       return category
@@ -63,7 +64,7 @@ class CategoryService
     catch(error)
     {
       const message = error.message
-      const metadata = { action: `Get ${document}`, payload: category }
+      const metadata = { action: `Get category`, payload: id }
       logger.info({ message, metadata })
     }
   }
@@ -74,8 +75,8 @@ class CategoryService
     {
       const category = Category.findByIdAndUpdate(id, object, { new: true })
 
-      const message = `Get categories`
-      const metadata = { action: `Get categories`, payload: category }
+      const message = `Update category`
+      const metadata = { action: `Update category`, payload: category }
       logger.info({ message, metadata })
 
       return category
@@ -84,7 +85,7 @@ class CategoryService
     catch(error)
     {
       const message = error.message
-      const metadata = { action: `Get ${document}`, payload: category }
+      const metadata = { action: `Update category`, payload: object }
       logger.info({ message, metadata })
     }
   }
@@ -95,8 +96,8 @@ class CategoryService
     {
       const category = Category.findByIdAndRemove(id)
 
-      const message = `Get categories`
-      const metadata = { action: `Get categories`, payload: category }
+      const message = `Delete category`
+      const metadata = { action: `Delete category`, payload: category }
       logger.info({ message, metadata })
 
       return category
@@ -105,7 +106,7 @@ class CategoryService
     catch(error)
     {
       const message = error.message
-      const metadata = { action: `Get ${document}`, payload: category }
+      const metadata = { action: `Delete category`, payload: id }
       logger.info({ message, metadata })
     }
   }

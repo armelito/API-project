@@ -5,7 +5,7 @@ router.get('/', home)
 
 async function home(req, res)
 {
-  res.send('API home page')
+  res.send('Client home page')
 }
 
 module.exports = router
