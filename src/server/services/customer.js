@@ -1,118 +1,35 @@
-const logger = require('../config/logger')
 const { Customer } = require('../models/Customer')
-
+const CRUDOperations = require('../utils/CrudOperations')
 class CustomerService
 {
   post = async (object) =>
   {
-    try
-    {
-      let customer = new Customer({ ...object })
-      customer = await customer.save()
-
-      const message = `Register a customer`
-      const metadata = { action: `Register a customer`, payload: customer }
-      logger.info({ message, metadata })
-
-      return customer
-    }
-
-    catch(error)
-    {
-      const message = error.message
-      const metadata = { action: `Register a customer`, payload: object }
-      logger.error({ message, metadata })
-
-      throw error
-    }
+    const operation = new CRUDOperations()
+    return await operation.POST(Customer, object, 'Post a customer', 'Post a customer')
   }
 
   getAll = async () =>
   {
-    try
-    {
-      const customers = await Customer.find().sort('name')
-
-      const message = `Get customers`
-      const metadata = { action: `Get customers`, payload: customers }
-      logger.info({ message, metadata })
-
-      return customers
-    }
-
-    catch(error)
-    {
-      const message = error.message
-      const metadata = { action: `Get customers`, payload: customers }
-      logger.info({ message, metadata })
-    }
+    const operation = new CRUDOperations()
+    return await operation.GETALL(Customer, 'Get all customers', 'Get all customers')
   }
 
   get = async (id) =>
   {
-    try
-    {
-      const customer = await Customer.findById(id)
-
-      const message = `Get customer`
-      const metadata = { action: `Get customer`, payload: customer }
-      logger.info({ message, metadata })
-
-      return customer
-    }
-
-    catch(error)
-    {
-      const message = error.message
-      const metadata = { action: `Get customer`, payload: id }
-      logger.info({ message, metadata })
-    }
+    const operation = new CRUDOperations()
+    return await operation.GET(Customer, id, `Get the customer with the given id: ${id}`, 'Get a customer')
   }
 
   put = async (id, object) =>
   {
-    try
-    {
-      const customer = await Customer.findByIdAndUpdate(id, object, { new: true })
-
-      const message = `Update a customer`
-      const metadata = { action: `Update a customer`, payload: customer }
-      logger.info({ message, metadata })
-
-      return customer
-    }
-
-    catch(error)
-    {
-      const message = error.message
-      const metadata = { action: `Update a customer`, payload: object }
-      logger.error({ message, metadata })
-
-      throw error
-    }
+    const operation = new CRUDOperations()
+    return await operation.PUT(Customer, id, object, `Update the customer with the given id: ${id}`, 'Update a customer')
   }
 
   del = async (id) =>
   {
-    try
-    {
-      const customer = await Customer.findByIdAndRemove(id)
-
-      const message = `Remove a customer`
-      const metadata = { action: `Remove a customer`, payload: customer }
-      logger.info({ message, metadata })
-
-      return customer
-    }
-
-    catch(error)
-    {
-      const message = error.message
-      const metadata = { action: `Remove a customer`, payload: id }
-      logger.error({ message, metadata })
-
-      throw error
-    }
+    const operation = new CRUDOperations()
+    return await operation.DELETE(Customer, id, `Delete the customer with the given id: ${id}`, 'Delete a customer')
   }
 }
 

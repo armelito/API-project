@@ -4,6 +4,7 @@ const CategoryService = require('../services/category')
 const { validate } = require('../models/Movie')
 
 const httpStatus = require("../utils/httpStatus")
+const mongoose = require('mongoose')
 
 post = async (req, res) =>
 {
@@ -39,9 +40,9 @@ post = async (req, res) =>
 
         const movieServiceInstance = new MovieService()
 
-        const { movie } = await movieServiceInstance.post(object)
+        const movie = await movieServiceInstance.post(object)
 
-        return res.status(httpStatus.OK).send({ movie })
+        return res.status(httpStatus.OK).send(movie)
       }
     }
   }

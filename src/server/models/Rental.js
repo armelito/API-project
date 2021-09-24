@@ -83,7 +83,7 @@ function validateRental(rental)
   return schema.validate(rental)
 }
 
-movieSchema.set('toJSON', { virtuals: true })
+rentalSchema.set('toJSON', { virtuals: true })
 
 exports.Rental = mongoose.model('Rental', rentalSchema)
 exports.validate = validateRental

@@ -1,114 +1,35 @@
-const logger = require('../config/logger')
 const { Category } = require('../models/Category')
-
+const CRUDOperations = require('../utils/CrudOperations')
 class CategoryService
 {
   post = async (object) =>
   {
-    try
-    {
-      let category = new Category({ ...object })
-      category = await category.save()
-
-      const message = `Register a Category`
-      const metadata = { action: `Register a category`, payload: category }
-      logger.info({ message, metadata })
-
-      return category
-    }
-
-    catch(error)
-    {
-      const message = error.message
-      const metadata = { action: `Register a category`, payload: object }
-      logger.error({ message, metadata })
-
-      throw error
-    }
+    const operation = new CRUDOperations()
+    return await operation.POST(Category, object, 'Post a category', 'Post a category')
   }
 
   getAll = async () =>
   {
-    try
-    {
-      const categories = await Category.find().sort('name')
-
-      const message = `Get categories`
-      const metadata = { action: `Get categories`, payload: categories }
-      logger.info({ message, metadata })
-
-      return categories
-    }
-
-    catch(error)
-    {
-      const message = error.message
-      const metadata = { action: `Get categories`, payload: categories }
-      logger.info({ message, metadata })
-    }
+    const operation = new CRUDOperations()
+    return await operation.GETALL(Category, 'Get all categories', 'Get all categories')
   }
 
   get = async (id) =>
   {
-    try
-    {
-      const category = Category.findById(id)
-
-      const message = `Get category`
-      const metadata = { action: `Get category`, payload: category }
-      logger.info({ message, metadata })
-
-      return category
-    }
-
-    catch(error)
-    {
-      const message = error.message
-      const metadata = { action: `Get category`, payload: id }
-      logger.info({ message, metadata })
-    }
+    const operation = new CRUDOperations()
+    return await operation.GET(Category, id, `Get the category with the given id: ${id}`, 'Get a category')
   }
 
   put = async (id, object) =>
   {
-    try
-    {
-      const category = Category.findByIdAndUpdate(id, object, { new: true })
-
-      const message = `Update category`
-      const metadata = { action: `Update category`, payload: category }
-      logger.info({ message, metadata })
-
-      return category
-    }
-
-    catch(error)
-    {
-      const message = error.message
-      const metadata = { action: `Update category`, payload: object }
-      logger.info({ message, metadata })
-    }
+    const operation = new CRUDOperations()
+    return await operation.PUT(Category, id, object, `Update the category with the given id: ${id}`, 'Update a category')
   }
 
   del = async (id) =>
   {
-    try
-    {
-      const category = Category.findByIdAndRemove(id)
-
-      const message = `Delete category`
-      const metadata = { action: `Delete category`, payload: category }
-      logger.info({ message, metadata })
-
-      return category
-    }
-
-    catch(error)
-    {
-      const message = error.message
-      const metadata = { action: `Delete category`, payload: id }
-      logger.info({ message, metadata })
-    }
+    const operation = new CRUDOperations()
+    return await operation.DELETE(Category, id, `Delete the category with the given id: ${id}`, 'Delete a category')
   }
 }
 

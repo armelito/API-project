@@ -19,7 +19,7 @@ const movieSchema = new Schema(
       required: true,
       trim: true,
       minlength: 5,
-      maxlength: 2000
+      maxlength: 4000
     },
     duration:
     {
@@ -56,7 +56,7 @@ function validateMovie(movie)
   const schema = Joi.object(
     {
       title: Joi.string().min(5).max(250).required(),
-      description: Joi.string().min(5).max(2000).required(),
+      description: Joi.string().min(5).max(4000).required(),
       duration: Joi.number().min(15).max(250).required(),
       categoryId: Joi.string().required(),
       numberInStock: Joi.number().min(0).max(300).required(),

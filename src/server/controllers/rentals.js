@@ -7,6 +7,7 @@ const { Movie } = require('../models/Movie')
 const { Customer } = require('../models/Customer')
 
 const httpStatus = require("../utils/httpStatus")
+const mongoose = require("mongoose")
 
 post = async (req, res) =>
 {
